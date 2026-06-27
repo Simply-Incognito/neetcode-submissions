@@ -1,0 +1,25 @@
+public class Solution {
+    public bool IsAnagram(string s, string t) {
+        if (s.Length != t.Length) return false;
+        bool isAnagram = true;
+
+        var dict = new Dictionary<char, int>();
+
+        for (int i = 0; i < s.Length; i++) {
+            if (!dict.ContainsKey(s[i])) {
+                dict.Add(s[i], dict.Count(c => c.Value == s[i]));
+            } else {
+                ++dict[s[i]];
+            }
+        }
+
+        for (int i = 0; i < t.Length; i++) {
+            if (!dict.ContainsKey(t[i]) || dict[t[i]]-- < 0) {
+                return false;
+            }
+        }
+
+        return isAnagram;
+
+    }
+}
